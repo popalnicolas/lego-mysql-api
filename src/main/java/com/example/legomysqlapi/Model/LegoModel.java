@@ -33,7 +33,7 @@ public class LegoModel {
     @Column(name = "price")
     private float price;
 
-    @ManyToOne()
-    @JoinColumn(name = "category")
+    @ManyToOne
+    @JoinColumn(name = "categoryId")
     private CategoryModel category;
 }
