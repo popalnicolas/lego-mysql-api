@@ -25,9 +25,6 @@ public class UserModel {
     @Column(name = "password")
     private String userPassword;
 
-    @Column(name = "dateOfBirth")
-    private long dateOfBirth;
-
     @ManyToOne
     @JoinColumn(name = "avatar")
     private AvatarModel avatar;

@@ -44,6 +44,12 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CONFLICT).body("User with this email address already exists");
     }
 
+    @GetMapping("/login")
+    public ResponseEntity<UserModel> getUser(@RequestHeader("Authorization") String header)
+    {
+        return ResponseEntity.ok().body(userService.getUserFromHeader(header));
+    }
+
     @GetMapping("/token/refresh")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);

@@ -17,6 +17,9 @@ public class AvatarModel {
     @Column(name = "avatarId")
     private long avatarId;
 
+    @Column(name = "avatarName")
+    private String avatarName;
+
     @Column(name = "avatarImage", columnDefinition = "text")
     private String avatarImage;
 }
