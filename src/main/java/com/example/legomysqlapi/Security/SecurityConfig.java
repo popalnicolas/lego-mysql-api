@@ -54,7 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         /* PERMIT USERS */
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/lego/review").hasAuthority("ROLE_USER");
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/lego/review").hasAuthority("ROLE_USER");
-        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/auth/login").hasAuthority("ROLE_USER");
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/auth/getUser").hasAuthority("ROLE_USER");
 
         /* PERMIT ADMINS */
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/lego/category").hasAuthority("ROLE_ADMIN");
