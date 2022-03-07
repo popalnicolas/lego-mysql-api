@@ -32,6 +32,7 @@ public class CategoryService implements ICategoryService {
 
     @Override
     public List<CategoryModel> getAllCategories() {
+        log.info("Getting all categories from database");
         return categoryRepository.findAll();
     }
 }
