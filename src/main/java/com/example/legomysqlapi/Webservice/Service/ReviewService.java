@@ -1,6 +1,7 @@
 package com.example.legomysqlapi.Webservice.Service;
 
 import com.example.legomysqlapi.Model.ReviewModel;
+import com.example.legomysqlapi.Model.UserModel;
 import com.example.legomysqlapi.Repository.IReviewRepository;
 import com.example.legomysqlapi.Webservice.Service.Interface.IReviewService;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +20,9 @@ public class ReviewService implements IReviewService {
     private final IReviewRepository reviewRepository;
 
     @Override
-    public void leaveReview(ReviewModel reviewModel) {
-        if(reviewRepository.findReviewModelByUser_UserIdAndLego_LegoId(reviewModel.getUser().getUserId(), reviewModel.getLego().getLegoId()) == null) {
+    public void leaveReview(ReviewModel reviewModel, UserModel user) {
+        if(reviewRepository.findReviewModelByUser_UserIdAndLego_LegoId(user.getUserId(), reviewModel.getLego().getLegoId()) == null) {
+            reviewModel.setUser(user);
             log.info("Reviewing lego {} with rating {} by user {}", reviewModel.getLego().getLegoName(), reviewModel.getRating(), reviewModel.getUser().getUserEmail());
             reviewRepository.save(reviewModel);
         }

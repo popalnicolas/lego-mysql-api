@@ -34,9 +34,10 @@ public class ReviewController {
     }
 
     @PostMapping
-    public ResponseEntity leaveReview(@RequestBody ReviewModel reviewModel)
+    public ResponseEntity leaveReview(@RequestHeader("Authorization") String header, @RequestBody ReviewModel reviewModel)
     {
-        reviewService.leaveReview(reviewModel);
+        UserModel user = userService.getUserFromHeader(header);
+        reviewService.leaveReview(reviewModel, user);
         return ResponseEntity.ok().build();
     }
 }
