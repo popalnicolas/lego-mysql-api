@@ -33,6 +33,9 @@ public class LegoModel {
     @Column(name = "price")
     private float price;
 
+    @Column(name = "pieces")
+    private int pieces;
+
     @ManyToOne
     @JoinColumn(name = "categoryId")
     private CategoryModel category;

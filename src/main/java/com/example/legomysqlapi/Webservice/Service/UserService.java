@@ -2,6 +2,7 @@ package com.example.legomysqlapi.Webservice.Service;
 
 import com.example.legomysqlapi.Model.UserModel;
 import com.example.legomysqlapi.Model.UserRoleModel;
+import com.example.legomysqlapi.Repository.IAvatarRepository;
 import com.example.legomysqlapi.Repository.IUserRepository;
 import com.example.legomysqlapi.Repository.IUserRoleRepository;
 import com.example.legomysqlapi.Webservice.Service.Interface.IUserService;
@@ -29,11 +30,13 @@ public class UserService implements IUserService, UserDetailsService {
     private final IUserRepository userRepository;
     private final IUserRoleRepository userRoleRepository;
     private final PasswordEncoder passwordEncoder;
+    private final IAvatarRepository avatarRepository;
 
     @Override
     public UserModel registerUser(UserModel user) {
         log.info("Saving new user {} to the database", user.getUserEmail());
         user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
+        user.setAvatar(avatarRepository.getById(1L));
         return userRepository.save(user);
     }
 
