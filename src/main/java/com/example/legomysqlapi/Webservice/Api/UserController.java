@@ -44,6 +44,14 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CONFLICT).body("User with this email address already exists");
     }
 
+    @PutMapping("/avatar")
+    public ResponseEntity changeAvatar(@RequestHeader("Authorization") String header, @RequestParam("avatarId") long avatarId)
+    {
+        UserModel user = userService.getUserFromHeader(header);
+        userService.changeAvatar(user, avatarId);
+        return ResponseEntity.ok().build();
+    }
+
     @GetMapping("/getUser")
     public ResponseEntity<UserModel> getUser(@RequestHeader("Authorization") String header)
     {

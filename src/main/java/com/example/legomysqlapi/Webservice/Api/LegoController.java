@@ -39,6 +39,12 @@ public class LegoController {
         }
     }
 
+    @GetMapping("/newest")
+    public ResponseEntity<List<LegoModel>> getNewestLegoById()
+    {
+        return ResponseEntity.ok().body(legoService.getTopTwoOrderedById());
+    }
+
     @GetMapping("/{id}")
     public @ResponseBody ResponseEntity<LegoModel> getLegoById(@PathVariable Long id)
     {

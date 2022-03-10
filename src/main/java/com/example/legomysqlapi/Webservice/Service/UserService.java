@@ -1,5 +1,6 @@
 package com.example.legomysqlapi.Webservice.Service;
 
+import com.example.legomysqlapi.Model.AvatarModel;
 import com.example.legomysqlapi.Model.UserModel;
 import com.example.legomysqlapi.Model.UserRoleModel;
 import com.example.legomysqlapi.Repository.IAvatarRepository;
@@ -63,6 +64,13 @@ public class UserService implements IUserService, UserDetailsService {
         UserModel user = getUser(email);
         log.info("Getting {} user information from database", email);
         return user;
+    }
+
+    @Override
+    public void changeAvatar(UserModel user, long avatarId) {
+        AvatarModel avatar = avatarRepository.getById(avatarId);
+        log.info("Changing users {} avatar", user.getUserEmail());
+        user.setAvatar(avatar);
     }
 
     @Override

@@ -8,4 +8,5 @@ import java.util.List;
 public interface ILegoRepository extends JpaRepository<LegoModel, Long> {
     List<LegoModel> findAllByCategory_CategoryId(long category_categoryId);
     List<LegoModel> findAllByAgeBetween(short age, short age2);
+    List<LegoModel> findTop2ByOrderByLegoIdDesc();
 }

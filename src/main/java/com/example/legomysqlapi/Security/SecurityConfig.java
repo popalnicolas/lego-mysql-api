@@ -50,12 +50,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/lego/category").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/lego/*").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/lego").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/lego/newest").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/lego/review/*").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/lego/avatar").permitAll();
         /* PERMIT USERS */
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/lego/review").hasAuthority("ROLE_USER");
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/lego/review").hasAuthority("ROLE_USER");
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/auth/getUser").hasAuthority("ROLE_USER");
+        http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/auth/avatar").hasAuthority("ROLE_USER");
 
         /* PERMIT ADMINS */
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/lego/category").hasAuthority("ROLE_ADMIN");

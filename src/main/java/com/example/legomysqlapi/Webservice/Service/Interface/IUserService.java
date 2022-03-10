@@ -7,4 +7,5 @@ public interface IUserService {
     UserModel getUser(String userEmail);
     void addRoleToUser(String userEmail, String roleName);
     UserModel getUserFromHeader(String header);
+    void changeAvatar(UserModel user, long avatarId);
 }

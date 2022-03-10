@@ -37,6 +37,12 @@ public class LegoService implements ILegoService {
     }
 
     @Override
+    public List<LegoModel> getTopTwoOrderedById() {
+        log.info("Getting newest lego products");
+        return legoRepository.findTop2ByOrderByLegoIdDesc();
+    }
+
+    @Override
     public LegoModel getById(long legoId) {
         log.info("Getting lego by lego id: {} from database", legoId);
         return legoRepository.getById(legoId);

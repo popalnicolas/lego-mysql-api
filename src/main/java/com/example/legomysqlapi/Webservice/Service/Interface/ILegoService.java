@@ -8,6 +8,7 @@ public interface ILegoService {
     List<LegoModel> getAllByCategory(long categoryId);
     List<LegoModel> getAllLegos();
     List<LegoModel> getAllByAgeRange(short age1, short age2);
+    List<LegoModel> getTopTwoOrderedById();
     LegoModel getById(long legoId);
 
     LegoModel addLego(LegoModel lego);
