@@ -57,45 +57,4 @@ public class UserController {
     {
         return ResponseEntity.ok().body(userService.getUserFromHeader(header));
     }
-
-    @GetMapping("/token/refresh")
-    public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
-        if(authorizationHeader != null && authorizationHeader.startsWith("Bearer "))
-        {
-            try{
-                String refresh_token = authorizationHeader.substring("Bearer ".length());
-                Algorithm algorithm = Algorithm.HMAC256(SecurityConfig.secretKey);
-                JWTVerifier verifier = JWT.require(algorithm).build();
-                DecodedJWT decodedJWT = verifier.verify(refresh_token);
-                String username = decodedJWT.getSubject();
-                UserModel userModel = userService.getUser(username);
-
-                String access_token = JWT.create()
-                        .withSubject(userModel.getUserEmail())
-                        .withExpiresAt(new Date(System.currentTimeMillis() + 24 * 60 * 60 * 1000)) //1 day token
-                        .withIssuer(request.getRequestURL().toString())
-                        .withClaim("roles", userModel.getRoles().stream().map(UserRoleModel::getRoleName).collect(Collectors.toList()))
-                        .sign(algorithm);
-
-                Map<String, String> tokens = new HashMap<>();
-                tokens.put("access_token", access_token);
-                tokens.put("refresh_token", refresh_token);
-
-                response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-                new ObjectMapper().writeValue(response.getOutputStream(), tokens);
-            } catch (Exception e){
-                response.setHeader("error", e.getMessage());
-                response.setStatus(HttpStatus.FORBIDDEN.value());
-                Map<String, String> error = new HashMap<>();
-                error.put("error_message", e.getMessage());
-                response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-                new ObjectMapper().writeValue(response.getOutputStream(), error);
-            }
-        }
-        else
-        {
-            throw new RuntimeException("Refresh token is missing");
-        }
-    }
 }
